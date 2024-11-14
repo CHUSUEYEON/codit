@@ -5,11 +5,13 @@ exports.postFile = async (req, res) => {
   console.log(req.body);
   try {
     const { title } = req.body;
+    const pdfPath = req.file.path;
     await File.create({
       title,
     }).then((result) => {
       console.log("등록 : ", result);
-      res.send("File upload SUCCESS");
+      console.log("file 정보 : ", req.file);
+      res.json({ pdfPath, title });
     });
   } catch (error) {
     console.error(error);
